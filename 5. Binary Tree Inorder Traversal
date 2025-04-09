@@ -1,0 +1,21 @@
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        pre(root , result);
+        return result;
+
+        
+    } // Helper Method
+    public void pre(TreeNode node , List<Integer> result){
+        if(node == null) return;   // Base case
+        pre(node.left, result); // Traverse left
+        result.add(node.val);  // Visit Root
+        pre(node.right, result);  // Traverse Right
+    }
+}
+
+Explaination:
+✅ What is Inorder Traversal?
+Inorder traversal follows this order:
+
+Left → Root → Right
