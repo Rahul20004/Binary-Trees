@@ -1,0 +1,248 @@
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        return validate(root , Long.MIN_VALUE, Long.MAX_VALUE);
+        
+    }
+    // Recursive function to validate the BST
+    private boolean validate(TreeNode node, long min, long max){
+        // Base case: an empty node is valid
+        if(node == null) return true;
+        
+        // If current node breaks the valid range rule
+        if(node.val <= min || node.val >= max) return false;
+
+        // Recursively check left and right subtrees
+        return validate(node.left , min, node.val)&& validate(node.right, node.val, max);
+    }
+}
+
+
+
+Explaination: 
+
+🌳 What is a Binary Search Tree (BST)?
+In a valid BST, the following rules must be true for every node:
+
+All nodes in the left subtree must have values less than the current node’s value.
+
+All nodes in the right subtree must have values greater than the current node’s value.
+
+Both left and right subtrees must also be valid BSTs.
+
+🧠 Intuition Behind the Algorithm
+We use a helper function to keep track of a valid range for each node.
+
+Initially, the root node is allowed to have any value, so the range is (-∞ to +∞).
+
+When we go to the left child, we update the max limit to be the current node’s value.
+
+When we go to the right child, we update the min limit to be the current node’s value.
+
+If any node’s value falls outside the allowed range, it's not a BST.
+
+✅ Step-by-step Example
+Valid BST Example:
+markdown
+Copy code
+      10
+     /  \
+    5   15
+       /  \
+      11  20
+Here's how we validate it:
+
+Start at root 10: valid range (-∞, ∞)
+
+Go left to 5: range (-∞, 10) ✅
+
+Go right to 15: range (10, ∞) ✅
+
+15's left child 11: range (10, 15) ✅
+
+15's right child 20: range (15, ∞) ✅
+
+👉 All nodes are within valid ranges — so this is a valid BST.
+
+❌ Invalid BST Example:
+markdown
+Copy code
+      5
+     / \
+    1   4
+       / \
+      3   6
+This looks okay at first, but:
+
+4 is on the right of 5 → should be greater than 5
+
+But 4 is less than 5 → ❌ This breaks the rule.
+
+So this is not a valid BST.
+
+✅ Java Code (with Explanation)
+java
+Copy code
+class TreeNode {
+    int val;
+    TreeNode left, right;
+    TreeNode(int x) { val = x; }
+}
+
+public class Solution {
+    public boolean isValidBST(TreeNode root) {
+        return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    // Recursive function to validate the BST
+    private boolean validate(TreeNode node, long min, long max) {
+        // Base case: an empty node is valid
+        if (node == null) return true;
+
+        // If current node breaks the valid range rule
+        if (node.val <= min || node.val >= max) return false;
+
+        // Recursively check left and right subtrees
+        return validate(node.left, min, node.val) &&
+               validate(node.right, node.val, max);
+    }
+}
+🧮 Time and Space Complexity
+Time Complexity: O(n) → We visit each node once.
+
+Space Complexity: O(h) → h is the height of the tree (recursive call stack).
+
+Would you like:
+
+A dry run on a sample input?
+
+Diagram of how the min-max range changes?
+
+Hindi comments in the code?
+
+Let me know what helps you understand better!
+
+
+
+
+
+
+You said:
+what is long min and long max
+what is long min and long max
+
+
+ChatGPT said:
+
+
+
+
+
+You said:
+ans
+
+
+ChatGPT said:
+Great question, Rahul! Let’s break it down in a very simple way 👇
+
+💡 What is Long.MIN_VALUE and Long.MAX_VALUE?
+In Java:
+
+long is a data type that stores very large integers.
+
+Long.MIN_VALUE and Long.MAX_VALUE are constants provided by Java that represent the smallest and largest values a long can hold.
+
+✅ Values:
+Constant	Value
+Long.MIN_VALUE	-9223372036854775808
+Long.MAX_VALUE	9223372036854775807
+So these are:
+
+Long.MIN_VALUE = Smallest possible number a long can hold.
+
+Long.MAX_VALUE = Largest possible number a long can hold.
+
+🤔 Why are we using these in the BST validation?
+We use these as the initial boundaries (range):
+
+java
+Copy code
+validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
+This means:
+
+The root node is allowed to have any value from the lowest possible to the highest possible.
+
+Then, as we go left and right in the tree, we update this range to check if all values follow the BST rule.
+
+🔍 Why not use Integer.MIN_VALUE and Integer.MAX_VALUE?
+Because:
+
+BST node values can be from -2³¹ to 2³¹ - 1 (as per the problem: -2^31 ≤ Node.val ≤ 2^31 - 1)
+
+So if we use Integer.MIN_VALUE and a node has that value, it might cause overflow or wrong comparison.
+
+Using long avoids that problem by giving a wider range.
+
+✅ In short:
+Long.MIN_VALUE → lowest number we can safely use (-9223372036854775808)
+
+Long.MAX_VALUE → highest number we can safely use (9223372036854775807)
+
+We use them to define a safe and wide range for BST checking.
+
+Let me know if you'd like me to draw a diagram or dry run example using these ranges!
+
+
+
+
+
+
+You said:
+then what is the purpose to give constraint 
+in quesition
+
+
+ChatGPT said:
+🔥 Awesome question, Rahul! You're thinking like a real developer now — let's dive into why they give constraints in the question even when we use Long.MIN_VALUE and Long.MAX_VALUE in code.
+
+❓ Question:
+If the problem says:
+
+diff
+Copy code
+-2³¹ <= Node.val <= 2³¹ - 1
+Then why do we still use Long.MIN_VALUE and Long.MAX_VALUE in the code?
+
+✅ Purpose of the Constraint in the Question
+The constraint in the question tells you:
+
+🔒 “The values in the tree will always be within this range.”
+→ That means:
+Node.val is always between -2,147,483,648 and 2,147,483,647
+Which is the full range of an int in Java.
+
+So basically, the input will never contain a value outside this range.
+
+✅ Then Why Use long in Code?
+Excellent question — here's why we use long in code:
+
+🧠 Reason:
+We need to compare values outside the node’s value.
+
+Let’s say:
+
+We have a node with value = Integer.MIN_VALUE = -2,147,483,648
+
+Then we go to its left child
+→ We check:
+
+java
+Copy code
+if (node.val <= min) // min = Long.MIN_VALUE
+But now if we pass Integer.MIN_VALUE as min, and the node also has value Integer.MIN_VALUE, the check:
+
+java
+Copy code
+node.val <= min
+will fail even though there is no smaller value possible.
+
+➡️ That’s why we use long — it gives us extra room, so that the comparison logic is always safe and doesn’t break due to edge cases.
