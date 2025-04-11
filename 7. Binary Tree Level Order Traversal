@@ -1,0 +1,139 @@
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+
+        List<List<Integer>> res = new ArrayList<>();
+        pre(root,0,res);                       // level 0 starts 
+        return res;
+    }
+    private static void pre(TreeNode root,int level,List<List<Integer>> result){
+        if(root==null)return ;
+        
+        if(result.size()<=level){
+            result.add(new ArrayList<>());
+        }
+
+        result.get(level).add(root.val);
+
+        pre(root.left,level+1,result);
+        pre(root.right,level+1,result);
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Explaination:
+✅ Code Explanation:
+java
+Copy code
+class Solution {
+➡️ Solution naam ki class banayi gayi hai jisme hum apna logic likhenge.
+
+java
+Copy code
+    public List<List<Integer>> levelOrder(TreeNode root) {
+➡️ Ye method levelOrder hai jo ek binary tree ka root input le raha hai aur har level ke nodes ko alag-alag list mein return karega.
+➡️ Return type hai List<List<Integer>>, yaani list of levels, jahan
+
+
+
+
+
+
+You said:
+in english
+
+
+ChatGPT said:
+Sure! Here's a line-by-line explanation in English for your Java code that performs Level Order Traversal using DFS (Depth First Search):
+
+✅ Code Explanation:
+java
+Copy code
+class Solution {
+➡️ Declares a class named Solution.
+
+java
+Copy code
+    public List<List<Integer>> levelOrder(TreeNode root) {
+➡️ This is the main method named levelOrder.
+➡️ It takes the root node of a binary tree as input and returns a list of lists of integers.
+➡️ Each inner list contains the node values of one level of the tree.
+
+java
+Copy code
+        List<List<Integer>> res = new ArrayList<>();
+➡️ Creates an empty list called res to store the result.
+➡️ Each element in res will be a list representing nodes at that specific level.
+
+java
+Copy code
+        pre(root, 0, res);
+➡️ Calls a helper method pre() to perform a recursive traversal.
+➡️ Passes the root node, level 0, and the result list res.
+
+java
+Copy code
+        return res;
+➡️ After the recursive traversal is complete, it returns the final list of levels.
+
+java
+Copy code
+    private static void pre(TreeNode root, int level, List<List<Integer>> result) {
+➡️ This is the helper method named pre, used for recursive depth-first traversal.
+➡️ Parameters:
+
+root: current node
+
+level: current level in the tree
+
+result: the result list being built
+
+java
+Copy code
+        if (root == null) return;
+➡️ Base case: If the current node is null, stop and return — no further processing needed.
+
+java
+Copy code
+        if (result.size() <= level) {
+            result.add(new ArrayList<>());
+        }
+➡️ If the result list does not yet have a list for this level, create a new one.
+➡️ For example, if you're at level 2 and result only has lists for levels 0 and 1, then add a new list for level 2.
+
+java
+Copy code
+        result.get(level).add(root.val);
+➡️ Add the current node's value (root.val) to the list that corresponds to the current level.
+
+java
+Copy code
+        pre(root.left, level + 1, result);
+        pre(root.right, level + 1, result);
+➡️ Recursively visit the left child and then the right child.
+➡️ Increase the level by 1 because you're going one level deeper in the tree.
+
+🔚 Summary:
+This code uses recursion + level tracking to simulate level-order traversal without using a queue (like in typical BFS).
+It stores nodes level-wise in a list of lists.
+
+Let me know if you want a visual diagram for this or the same explanation in Hindi!
