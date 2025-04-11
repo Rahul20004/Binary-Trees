@@ -1,0 +1,144 @@
+class Solution {
+    public int maxDepth(TreeNode root) {
+        if(root == null) return 0;
+        int left = maxDepth(root.left ); // Recursive call for left subtree
+        int right = maxDepth(root.right);  // Recursive call for right subtree
+        return  1+ Math.max(left , right);
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+Explaination:
+📘 How the code works:
+Let’s go from bottom to top of the tree:
+
+Node 15:
+
+No left or right → depth = 1
+
+Node 7:
+
+No left or right → depth = 1
+
+Node 20:
+
+Left (15) = 1
+
+Right (7) = 1
+
+Max of both = 1 → so depth = 1 + 1 = 2
+
+Node 9:
+
+No children → depth = 1
+
+Node 3 (root):
+
+Left (9) = 1
+
+Right (20) = 2
+
+Max = 2 → depth = 1 + 2 = 3 ✅
+
+✅ Final Output: 3
+Because the longest path from root to leaf has 3 nodes.
+
+🧠 Tree Depth Visualized:
+mathematica
+Copy code
+Level 1 → 3
+Level 2 → 9 and 20
+Level 3 → 15 and 7
+
+So total depth = 3
+Do you want me to draw this tree diagram for you? Or explain in Hindi? 😊
+
+
+
+
+
+
+You said:
+dry run
+
+
+ChatGPT said:
+Awesome! Let’s do a dry run (step-by-step execution) of the code on this tree:
+
+✅ Input Tree:
+Array: [3,9,20,null,null,15,7]
+
+Structure:
+
+markdown
+Copy code
+        3
+       / \
+      9   20
+          / \
+        15   7
+✅ Code:
+java
+Copy code
+public int maxDepth(TreeNode root) {
+    if (root == null) return 0;
+
+    int left = maxDepth(root.left);
+    int right = maxDepth(root.right);
+
+    return 1 + Math.max(left, right);
+}
+🔁 Dry Run from Bottom to Top:
+🧩 Node: 15
+It's a leaf (no children)
+
+maxDepth(15.left) → null → return 0
+
+maxDepth(15.right) → null → return 0
+
+depth(15) = 1 + max(0, 0) = 1
+
+🧩 Node: 7
+Also a leaf
+
+maxDepth(7.left) → null → return 0
+
+maxDepth(7.right) → null → return 0
+
+depth(7) = 1 + max(0, 0) = 1
+
+🧩 Node: 20
+Has 2 children → 15 and 7
+
+left = maxDepth(15) = 1
+
+right = maxDepth(7) = 1
+
+depth(20) = 1 + max(1, 1) = 2
+
+🧩 Node: 9
+No children
+
+maxDepth(9.left) → null → 0
+
+maxDepth(9.right) → null → 0
+
+depth(9) = 1 + max(0, 0) = 1
+
+🧩 Node: 3 (root)
+Left depth = maxDepth(9) = 1
+
+Right depth = maxDepth(20) = 2
+
+depth(3) = 1 + max(1, 2) = 3 ✅
+
+✅ Final Answer: 3
+So the function will return 3, which is the correct maximum depth.
