@@ -1,0 +1,14 @@
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        pre(root , result);
+        return result;
+        
+    }
+    public void pre(TreeNode node, List<Integer> result){
+        if(node == null) return;
+        pre(node.left , result);
+        pre(node.right , result);
+        result.add(node.val);
+    }
+}
