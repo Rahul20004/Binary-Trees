@@ -1,0 +1,14 @@
+
+class Solution {
+    
+    public static int countLeaves(Node root) {
+        if (root == null) return 0;
+
+        // If the node is a leaf (no left or right child)
+        if (root.left == null && root.right == null)
+            return 1;
+
+        // Recursively count leaf nodes in left and right subtrees
+        return countLeaves(root.left) + countLeaves(root.right);
+    }
+}
