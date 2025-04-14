@@ -1,0 +1,105 @@
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();  // Number of nodes in current level
+
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode temp = queue.poll();
+
+                // if it's the last node in this level, add to result
+                if (i == levelSize - 1)
+                    result.add(temp.val);
+
+                // enqueue children
+                if (temp.left != null) queue.offer(temp.left);
+                if (temp.right != null) queue.offer(temp.right);
+            }
+        }
+
+        return result;
+    }
+}
+
+
+Explaination:
+🔁 First Iteration (Level 0):
+queue: [1]
+
+levelSize = 1 (only one node in this level)
+
+Loop through level:
+
+i = 0
+
+temp = 1
+
+Since i == levelSize - 1 → result.add(1)
+
+Add 2 and 3 to queue
+→ queue = [2, 3]
+
+➡️ Result so far: [1]
+
+🔁 Second Iteration (Level 1):
+queue: [2, 3]
+
+levelSize = 2 (2 nodes)
+
+Loop through level:
+
+i = 0
+
+temp = 2
+
+Add 5 to queue
+→ queue = [3, 5]
+
+i = 1
+
+temp = 3
+
+i == levelSize - 1 → result.add(3)
+
+Add 4 to queue
+→ queue = [5, 4]
+
+➡️ Result so far: [1, 3]
+
+🔁 Third Iteration (Level 2):
+queue: [5, 4]
+
+levelSize = 2
+
+Loop through level:
+
+i = 0
+
+temp = 5
+
+No children to add
+
+i = 1
+
+temp = 4
+
+i == levelSize - 1 → result.add(4)
+
+No children to add
+→ queue = []
+
+➡️ Result so far: [1, 3, 4]
+
+✅ Queue is empty — done!
+Final result = [1, 3, 4] ✅
+
+📌 Summary Table:
+Level	Nodes	Last Node Seen	Added to Result
+0	[1]	1	✅ [1]
+1	[2, 3]	3	✅ [1, 3]
+2	[5, 4]	4	✅ [1, 3, 4]
