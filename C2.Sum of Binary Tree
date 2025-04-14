@@ -6,3 +6,62 @@ class Solution {
         return root.data + sumBT(root.left) + sumBT(root.right);
     }
 }
+
+
+Explaination:
+🔁 पहले याद करें: Size of Binary Tree
+java
+Copy
+Edit
+int getSize(Node node) {
+    if (node == null) return 0;
+    return 1 + getSize(node.left) + getSize(node.right);
+}
+🔹 यहाँ 1 जोड़ रहे हैं हर node के लिए। मतलब:
+हर बार एक node को count करो, और उसके left और right subtree में कितने nodes हैं वो भी जोड़ दो।
+
+➕ अब देखें: Sum of Binary Tree
+java
+Copy
+Edit
+int sumBT(Node root) {
+    if (root == null) return 0;
+    return root.data + sumBT(root.left) + sumBT(root.right);
+}
+🔹 यहाँ root.data जोड़ रहे हैं हर node के लिए। मतलब:
+हर बार एक node का value (data) ले लो, और उसके left और right subtree का sum भी जोड़ दो।
+
+🤔 अब आए समझने की बारी: कैसे काम कर रहा है ये?
+चलो एक छोटा example लेते हैं:
+
+markdown
+Copy
+Edit
+        10
+       /  \
+      20   30
+इसमें sum क्या होगा?
+10 + 20 + 30 = 60
+
+अब dry run करते हैं 👇
+
+Step by step:
+sumBT(10)
+→ 10 + sumBT(20) + sumBT(30)
+
+sumBT(20)
+→ 20 + sumBT(null) + sumBT(null) → 20 + 0 + 0 = 20
+
+sumBT(30)
+→ 30 + sumBT(null) + sumBT(null) → 30 + 0 + 0 = 30
+
+अब वापस:
+
+👉 sumBT(10) = 10 + 20 + 30 = 60 ✅
+
+🎯 Final Summary:
+Function	क्या जोड़ रहे हैं?	किस चीज का result आ रहा है?
+getSize()	हर node के लिए +1	कितने nodes हैं
+sumBT()	हर node के लिए +data	sum of all node values
+अगर तुम चाहो तो मैं इस logic को Hindi + Visual diagram के साथ समझाने वाला YouTube thumbnail भी बना सकता हूँ 📊
+बताओ, और कहाँ confusion हो रहा है?
