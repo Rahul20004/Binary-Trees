@@ -1,0 +1,37 @@
+
+ // Post Order Traversal(left -> right -> root)
+class Solution {
+    int diameter = 0;  // global variable
+    public int diameterOfBinaryTree(TreeNode root) {
+        edges(root);   // start Recursion from the root
+        return diameter;
+        
+    }
+    private int edges(TreeNode node){
+        if(node == null) return 0;
+        int left = edges(node.left);   //  visit left
+        int right = edges(node.right);  // visit right
+        diameter = Math.max(diameter, left + right);  // process current node
+        return 1 + Math.max(left, right); // Height of subtree
+    }
+}
+
+Explaination:
+🧾 Dry Run Table
+Function Call	Left Height	Right Height	maxDiameter Update	Return Height
+height(4)	0	0	0	1
+height(5)	0	0	0	1
+height(2)	1	1	2 (1+1)	2
+height(3)	0	0	stays 2	1
+height(1)	2	1	3 (2+1)	3
+🎯 Final Answer:
+maxDiameter = 3
+→ This is the length of the path: 4 → 2 → 1 → 3
+
+💡 Summary:
+We visit all children before processing the parent → Post-order traversal
+
+maxDiameter gets updated at each node by checking left + right heights
+
+We return the height of each subtree to the parent
+
