@@ -1,0 +1,136 @@
+// import java.util.*;
+
+// class TreeNode {
+//     int data;
+//     TreeNode left, right;
+
+//     public TreeNode(int val) {
+//         data = val;
+//         left = right = null;
+//     }
+// }
+
+// public class BST {
+
+//     // Insert a value into BST
+//     public static TreeNode insert(TreeNode root, int val) {
+//         if (root == null) return new TreeNode(val);
+
+//         if (val < root.data)
+//             root.left = insert(root.left, val);
+//         else
+//             root.right = insert(root.right, val);
+
+//         return root;
+//     }
+
+//     // Level Order Traversal (BFS)
+//     public static void levelOrder(TreeNode root) {
+//         if (root == null) return;
+
+//         Queue<TreeNode> q = new LinkedList<>();
+//         q.add(root);
+
+//         while (!q.isEmpty()) {
+//             TreeNode temp = q.poll();
+//             System.out.print(temp.data + " ");
+
+//             if (temp.left != null) q.add(temp.left);
+//             if (temp.right != null) q.add(temp.right);
+//         }
+//     }
+
+//     // Construct BST from array
+//     public static TreeNode constructBST(int[] arr) {
+//         TreeNode root = null;
+//         for (int val : arr) {
+//             root = insert(root, val);
+//         }
+//         return root;
+//     }
+
+//     public static void main(String[] args) {
+//         int[] arr = {45, 38, 58, 26, 40, 46, 64};
+//         TreeNode root = constructBST(arr);
+
+//         System.out.println("Level Order Traversal of BST:");
+//         levelOrder(root);
+//     }
+// }
+
+import java.util.*;
+
+class TreeNode {
+    int data;
+    TreeNode left, right;
+
+    public TreeNode(int val) {
+        data = val;
+        left = right = null;
+    }
+}
+
+public class BST {
+
+    // Insertion using while(true) loop
+    public static TreeNode insert(TreeNode root, int val) {
+        TreeNode newNode = new TreeNode(val);
+
+        if (root == null) return newNode;
+
+        TreeNode current = root;
+
+        while (true) {
+            if (val < current.data) {
+                if (current.left == null) {
+                    current.left = newNode;
+                    break;
+                } else {
+                    current = current.left;
+                }
+            } else {
+                if (current.right == null) {
+                    current.right = newNode;
+                    break;
+                } else {
+                    current = current.right;
+                }
+            }
+        }
+
+        return root;
+    }
+
+    // Level Order Traversal
+    public static void levelOrder(TreeNode root) {
+        if (root == null) return;
+
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+
+        while (!q.isEmpty()) {
+            TreeNode temp = q.poll();
+            System.out.print(temp.data + " ");
+
+            if (temp.left != null) q.add(temp.left);
+            if (temp.right != null) q.add(temp.right);
+        }
+    }
+
+    // Construct BST from array using insert method
+    public static TreeNode constructBST(int[] arr) {
+        TreeNode root = null;
+        for (int val : arr) {
+            root = insert(root, val);
+        }
+        return root;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {45, 38, 58, 26, 40, 46, 64};
+        TreeNode root = constructBST(arr);
+
+        System.out.println("Level Order Traversal of BST:");
+        levelOrder(root);
+    }
+}
