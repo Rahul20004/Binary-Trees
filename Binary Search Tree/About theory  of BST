@@ -1,0 +1,61 @@
+🌳 What is a Binary Search Tree (BST)?
+A Binary Search Tree is a type of binary tree where the nodes are arranged in a specific order to allow fast searching, insertion, and deletion.
+
+🧠 BST Rules:
+For every node in the tree:
+
+Left child has a value less than the node.
+
+Right child has a value greater than the node.
+
+No duplicate values (in most cases).
+
+🔍 Why is BST useful?
+Because it allows:
+
+Searching in O(log n) time (on average)
+
+Inserting in O(log n)
+
+Deleting in O(log n)
+
+But only if the tree is balanced. In worst case (like a linked list), it becomes O(n).
+
+🌱 Example of BST:
+Let’s insert these values into a BST: 50, 30, 70, 20, 40, 60, 80
+
+markdown
+Copy code
+        50
+       /  \
+     30    70
+    / \    / \
+  20  40  60  80
+All values left of 50 are smaller.
+
+All values right of 50 are larger.
+
+This makes it easy to search any value.
+
+✏️ Basic BST Operations:
+1. Search:
+Start from root, compare the value:
+
+If smaller → go left
+
+If larger → go right
+
+Repeat until found or reach null
+
+2. Insert:
+Follow same path as search. When you find a null spot → insert the node there.
+
+3. Delete:
+Three cases:
+
+Node has no child → remove it
+
+Node has one child → replace node with child
+
+Node has two children → replace node with its inorder successor (smallest value in right subtree)
+
